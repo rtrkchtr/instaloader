@@ -508,28 +508,30 @@ class Instaloader:
                 self.context.error("Warning: {0} has unknown typename: {1}".format(post, post.typename))
 
         # Save caption if desired
-        metadata_string = _ArbitraryItemFormatter(post).format(self.post_metadata_txt_pattern).strip()
-        if metadata_string:
-            self.save_caption(filename=filename, mtime=post.date_local, caption=metadata_string)
+        # metadata_string = _ArbitraryItemFormatter(post).format(self.post_metadata_txt_pattern).strip()
+        # if metadata_string:
+        #     self.save_caption(filename=filename, mtime=post.date_local, caption=metadata_string)
 
         # Download video if desired
         if post.is_video and self.download_videos is True:
             downloaded &= self.download_pic(filename=filename, url=post.video_url, mtime=post.date_local)
 
-        # Download geotags if desired
-        if self.download_geotags and post.location:
-            self.save_location(filename, post.location, post.date_local)
-
-        # Update comments if desired
-        if self.download_comments is True:
-            self.update_comments(filename=filename, post=post)
-
-        # Save metadata as JSON if desired.
-        if self.save_metadata is not False:
-            self.save_metadata_json(filename, post)
+        # # Download geotags if desired
+        # if self.download_geotags and post.location:
+        #     self.save_location(filename, post.location, post.date_local)
+        #
+        # # Update comments if desired
+        # if self.download_comments is True:
+        #     self.update_comments(filename=filename, post=post)
+        #
+        # # Save metadata as JSON if desired.
+        # if self.save_metadata is not False:
+        #     self.save_metadata_json(filename, post)
 
         self.context.log()
         return downloaded
+
+
 
     @_requires_login
     def get_stories(self, userids: Optional[List[int]] = None) -> Iterator[Story]:
